@@ -166,16 +166,16 @@ function predictChord = choral_analysis_modify_new(barNote, onsetBar, timeSig, p
                         nowRoot           = ~(ceil(mod(Resolution_Dim7.chordIdx{j-1,idx(end)},12)/12))*12 + mod(Resolution_Dim7.chordIdx{j-1,idx(end)},12);
                         nextRoot          = Optimal.pitchNo{j,k-1};
                         trueRoot          = ~(ceil(mod((nextRoot-1),12)/12))*12 + mod((nextRoot-1),12);
-                        refNextBarRoot    = ~refNextBarRoot;
+                        refNextBarRoot    = ~refNextBarRoot
 
                         if  any(nowRoot == trueRoot)
                             Optimal.Chord(j-1, idx(end))     = Resolution_Dim7.chordIdx{j-1,idx(end)}(nowRoot == trueRoot);
                             Optimal.templateNo(j-1, idx(end))  = ceil(Optimal.Chord(j-1,idx(end))/12);
-                            Optimal.pitchNo{j-1, idx(end)}  = ~(ceil(mod(Optimal.Chord(j-1,idx(end)),12)/12))*12 + mod(Optimal.Chord(j-1,idx(end)),12);
-                            Optimal.ChordName{j-1, idx(end)} = strcat(pitchName(Optimal.pitchNo{j-1,idx(end)}), tempName(Optimal.templateNo(j-1,idx(end))));    
+                            Optimal.pitchNo(j-1, idx(end))  = ~(ceil(mod(Optimal.Chord(j-1,idx(end)),12)/12))*12 + mod(Optimal.Chord(j-1,idx(end)),12);
+                            Optimal.ChordName{j-1, idx(end)} = strcat(pitchName(Optimal.pitchNo(j-1,idx(end))), tempName(Optimal.templateNo(j-1,idx(end))));    
 
-                            predictChord(evaluationIdx, 4) = Optimal.ChordName{j-1,idx(end)};
-                            predictChord{evaluationIdx, 5} = Optimal.Chord(j-1,idx(end));
+                            predictChord(eva_i, 4) = Optimal.ChordName{j-1,idx(end)};
+                            predictChord{eva_i, 5} = Optimal.Chord(j-1,idx(end));
                         else
                             warning([ 'bar ' num2str(j) ', step3 : Fully Diminished 7th 沒有解決']);
                             Optimal.tieBreaking(j, k - 1) = {'no solve'};
@@ -207,7 +207,7 @@ function predictChord = choral_analysis_modify_new(barNote, onsetBar, timeSig, p
                                 Optimal.Chord(j,resolution_idx(t))     = AnsChord;
                                 Optimal.templateNo(j,resolution_idx(t))  = ceil(AnsChord/12); 
                                 Optimal.pitchNo{j,resolution_idx(t)}  = ~(ceil(mod(AnsChord,12)/12))*12 + mod(AnsChord,12);
-                                Optimal.ChordName{j,resolution_idx(t)} = strcat(pitchName(Optimal.pitchNo{j,resolution_idx(t)}), tempName(Optimal.templateNo(j,resolution_idx(t))));    
+                                Optimal.ChordName{j,resolution_idx(t)} = strcat(pitchName(Optimal.pitchNo(j,resolution_idx(t))), tempName(Optimal.templateNo(j,resolution_idx(t))));    
 
                                 nowBarIdx = find(cell2mat(predictChord(2:end,1))==j);
                                 predictChord(nowBarIdx(resolution_idx(t))+1,4) = Optimal.ChordName{j,resolution_idx(t)};
